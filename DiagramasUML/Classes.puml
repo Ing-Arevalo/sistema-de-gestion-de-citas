@@ -1,0 +1,203 @@
+@startuml clases
+
+package "modelo"{
+    class IPS{
+        - nombre: String
+        - NIT: String
+        - usuarios: List<Usuario>
+        - recepcionistas: List<Recepcionista>
+        - medicos: List<Medico>
+        - pacientes: List<Paciente>
+        - citas: List<Cita>
+        - consultorios: List<Consultorio>
+        + agregarUsuario(): boolean
+        + agregarMedico(): boolean
+        + agregarPaciente(): boolean
+        + agregarRecepcionista(): boolean
+
+    }
+
+    class Administrador{
+        + listarUsuarios(): List<Usuario>
+        + crearUsuario(): boolean
+        + verUsuario(): Usuario
+        + actualizarUsuario(): boolean
+        + eliminarUsuario(): boolean
+        + listarConsultorios(): List<Consultorio>
+        + crearConsultorio(): boolean
+        + verConsultorio(): Consultorio
+        + actualizarConsultorio(): boolean
+        + eliminarConsultorio(): boolean
+    }
+
+    class Usuario{
+        - id: int
+        - nombre: String
+        - email: String
+        - nIdentificacion: String
+        - telefono: String
+        - tipoUsuario: TipoUsuario
+    }
+    
+    class Consultorio{
+        - id: int
+        - especialidad: String
+    }
+
+    class Recepcionista{
+        + reservarCita(): boolean
+        + listarPacientes(): void
+        + listarCitas(): void
+        + registarPaciente(): boolean
+        + verPaciente(): Paciente
+        + actualizarPaciente(): boolean
+    }
+
+    class Medico{
+        - consultorioAsignado: Consultorio
+        - especialidad: String
+        - agenda: String[][]
+        + verCitas(): boolean
+        + atenderCita(): boolean
+        + remitirCita(): boolean
+    }
+
+    class Paciente{
+        + verCitas(): boolean
+        + reservarCita(): boolean
+        + actualizarDatos(): boolean
+    }
+
+    class Cita{
+        - id: int
+        - estado: EstadoCita
+        - paciente: Paciente
+        - medico: Medico
+        - consultorio: Consultorio
+        - fechaHora: LocalDateTime
+    }
+
+    enum TipoUsuario{
+        RECEPCIONISTA
+        MEDICO
+        PACIENTE
+    }
+
+    enum EstadoCita {
+        RESERVADA
+        CANCELADA
+        COMPLETADA
+    }
+}
+
+package "vista"{
+    class VistaAdministrador{
+        - ac: AdministradorController
+        + menu(): void
+    }
+
+    class VistaRecepcionista{
+        - rc: RecepcionistaController
+        + menu(): void
+    }
+
+    class VistaMedico{
+        - mc: MedicoController
+        + menu(): void
+    }
+
+    class VistaPaciente{
+        - pc: PacienteController
+        + menu(): void
+    }
+}
+
+package "controlador"{
+    class AdministradorController {
+        - ips: IPS
+        + listarCitas(): void
+        + reservarCita(): boolean
+        + cancelarCita(): boolean
+        + reprogramarCita(): boolean
+        + listarUsuarios(): void
+    }
+
+    class PacienteController {
+        - gcs: GestionCitaService
+        - gus: GestionUsuarioService
+        + listarCitas(): void
+        + verCita(): void
+        + reservarCita(): void
+        + cancelarCita(): void
+    }
+
+    class MedicoController {
+        - gcs: GestionCitaService
+        - gus: GestionUsuarioService
+        + listarCitas(): void
+        + verCita(): void
+        + atenderCita(): void
+        + cancelarCita: void
+    }
+
+    class RecepcionistaController {
+        - gcs: GestionCitaService
+        - gus: GestionUsuarioService
+        + listarCitas(): void
+        + verCita(): void
+        + reservarCita(): void
+        + cancelarCita(): void
+        + listarUsuarios(): void
+        + verUsuario(): void
+    }
+}
+
+package "service"{
+    class GestionCitaService{
+        - ips: IPS
+        + listarCitas(): void
+        + reservarCita(): 
+        + verCita(): void
+        + actualizarCita(): void
+        + cancelarCita(): void
+    }
+
+    class GestionUsuarioService{
+        - ips: IPS
+        + listarUsuarios(): void
+        + registarUsuario(): void
+        + actualizarUsuario(): void
+        + eliminarUsuario(): void
+    }
+
+    class GestionConsultorioService{
+        - ips: IPS
+        + listarConsultorios(): void
+        + crearConsultorio(): void
+        + actualizarConsultorio(): void
+        + eliminarConsultorio(): void
+    }
+
+    class ValidacionDatosService{
+        - ips: IPS
+        + validarNombre(): boolean
+        + validarIdentificacion(): boolean
+        + validarEmail(): boolean
+        + validarTelefono(): boolean
+    }
+}
+
+IPS "1" -- "0..*" Usuario: "tiene"
+IPS "1" -- "0..*" Consultorio: "tiene"
+IPS "1" -- "0..*" Cita: "tiene"
+
+Usuario <|-- Paciente
+Usuario <|-- Medico
+Usuario <|-- Recepcionista
+Usuario "0..*" -- "1" TipoUsuario: "es"
+Paciente "1" -- "0..*" Cita : "tiene"
+Medico   "1" -- "0..*" Cita : "agenda"
+Consultorio "1" -- "0..*" Cita : "asignado_en"
+EstadoCita "1" -- "0..*" Cita: "tiene"
+
+@enduml

@@ -1,0 +1,5 @@
+1;Lina Morales;09876543;MoralLin@examail.com;123456;Neurocirugia
+2;Miguel Morales;09876543;MoraMig@examail.com;123456;Cardiologia
+3;Ever Torres;09876543;EveTT@examail.com;123456;Pediatria
+4;Julian ruiz;09876543;ruizJul@examail.com;123456;Enfermeria
+5;Malcon Lee;09876543;ElDocLee@examail.com;123456;Oftamologia

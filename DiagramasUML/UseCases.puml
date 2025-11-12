@@ -1,0 +1,98 @@
+@startuml Sistema
+left to right direction
+
+actor Administrador
+actor Usuario
+actor Recepcionista
+actor Medico
+actor Paciente
+
+rectangle "Sistema de gestion de citas medicas"{
+    
+    package "Gestion de usuarios"{
+        usecase UC_ConUsrs  as "Consultar usuarios"
+        usecase UC_RegUsr   as "Registrar usuario"
+        usecase UC_VerUsr   as "Ver usuario"
+        usecase UC_ModUsr   as "Modificar usuario"
+        usecase UC_ElmUsr   as "Eliminar usuario"
+    }
+
+    package "Gestion de consultorios"{
+        usecase UC_ConCns   as "Consultar consultorios"
+        usecase UC_VerCns   as "Ver consultorio"
+        usecase UC_CreCns   as "Crear consultorio"
+        usecase UC_ModCns   as "Modificar consultorio"
+        usecase UC_ElmCns   as "Eliminar consultorio"
+    }
+
+    package "Gestion de Pacientes"{
+        usecase UC_ConPacs  as "Consultar pacientes"
+        usecase UC_RegPac   as "Registrar paciente"
+        usecase UC_VerPac   as "Ver paciente"
+    }
+
+    package "Gestion de citas" as GesCitas{
+        usecase UC_ConCitas     as "Consultar citas"
+        usecase UC_VerCita      as "Ver cita"
+        usecase UC_ResCita      as "Reservar cita"
+        usecase UC_RepCita      as "Reprogramar cita"
+        usecase UC_CanCita      as "Cancelar cita"
+    }
+
+    package "Ingreso/salida del sistema"{
+        usecase UC_IniSes   as "Iniciar sesión"
+        usecase UC_CerSes   as "Cerrar sesión"
+    }
+
+    package "Atención de citas"{
+        usecase UC_AtdCita  as "Atender cita"
+        usecase UC_RemCita  as "Remitir cita"
+    }
+
+}
+
+' Relaciones caso de uso - caso de uso
+UC_IniSes   <.. UC_CerSes:<<include>>
+
+UC_ConCitas <.. UC_VerCita:<<include>>
+UC_VerCita  <.. UC_CanCita:<<extend>>
+UC_VerCita  <.. UC_RepCita:<<extend>>
+
+UC_ConPacs  <.. UC_VerPac:<<include>>
+
+UC_ConCns   <.. UC_VerCns:<<include>>
+UC_VerCns   <.. UC_ElmCns:<<extend>>
+UC_VerCns   <.. UC_ModCns:<<extend>>
+
+UC_ConUsrs  <.. UC_VerUsr:<<include>>
+UC_VerUsr   <.. UC_ElmUsr:<<extend>>
+UC_VerUsr   <.. UC_ModUsr:<<extend>>
+
+UC_AtdCita  <.. UC_RemCita:<<extend>>
+
+' Relaciones actor - actor
+
+Recepcionista   -r-|>    Usuario
+Medico          -l-|>    Usuario
+Paciente        -l-|>    Usuario
+
+' Relaciones actor - casos de uso
+
+Administrador -- UC_ConUsrs
+Administrador -- UC_RegUsr
+
+Administrador -- UC_ConCns
+Administrador -- UC_CreCns
+
+Usuario -- UC_IniSes
+Usuario -- UC_ConCitas
+
+Recepcionista -- UC_ResCita
+Recepcionista -- UC_ConPacs
+Recepcionista -- UC_RegPac
+
+Medico -- UC_AtdCita
+
+Paciente -- UC_ResCita
+
+@enduml
