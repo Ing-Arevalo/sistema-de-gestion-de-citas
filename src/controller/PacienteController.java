@@ -4,18 +4,14 @@ import model.Paciente;
 import service.GestionCitasService;
 import service.GestionUsuariosService;
 
-import java.util.Scanner;
-
 public class PacienteController {
     GestionCitasService gcs;
     GestionUsuariosService gus;
-    Scanner input;
     Paciente paciente;
 
-    public PacienteController(GestionCitasService gcs, GestionUsuariosService gus, Scanner input){
+    public PacienteController(GestionCitasService gcs, GestionUsuariosService gus){
         this.gcs = gcs;
         this.gus = gus;
-        this.input = input;
     }
 
     public String listadoCitas(){

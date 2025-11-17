@@ -1,15 +1,12 @@
 package view;
 
 import controller.MedicoController;
-import java.util.Scanner;
 
 public class VistaMedico {
     MedicoController mc;
-    Scanner input;
 
-    public VistaMedico(MedicoController mc, Scanner input) {
+    public VistaMedico(MedicoController mc) {
         this.mc = mc;
-        this.input = input;
     }
 
     public void mostrar(){

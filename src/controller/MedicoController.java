@@ -3,18 +3,15 @@ package controller;
 import model.Medico;
 import service.GestionCitasService;
 import service.GestionUsuariosService;
-import java.util.Scanner;
 
 public class MedicoController {
     GestionCitasService gcs;
     GestionUsuariosService gus;
-    Scanner input;
     Medico medico;
 
-    public MedicoController(GestionCitasService gcs, GestionUsuariosService gus, Scanner input){
+    public MedicoController(GestionCitasService gcs, GestionUsuariosService gus){
         this.gcs = gcs;
         this.gus = gus;
-        this.input = input;
     }
 
     public void atenderCita(int idCit){

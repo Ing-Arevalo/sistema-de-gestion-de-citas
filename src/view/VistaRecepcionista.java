@@ -1,15 +1,12 @@
 package view;
 
 import controller.RecepcionistaController;
-import java.util.Scanner;
 
 public class VistaRecepcionista {
     RecepcionistaController rc;
-    Scanner input;
 
-    public VistaRecepcionista(RecepcionistaController rc, Scanner input) {
+    public VistaRecepcionista(RecepcionistaController rc) {
         this.rc = rc;
-        this.input = input;
     }
 
     public void mostrar() {

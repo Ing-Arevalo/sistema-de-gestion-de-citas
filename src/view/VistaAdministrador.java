@@ -1,15 +1,12 @@
 package view;
 
 import controller.AdministradorController;
-import java.util.Scanner;
 
 public class VistaAdministrador {
     AdministradorController ac;
-    Scanner input;
 
-    public VistaAdministrador(AdministradorController ac, Scanner input) {
+    public VistaAdministrador(AdministradorController ac) {
         this.ac = ac;
-        this.input = input;
     }
 
     public void mostrar() {

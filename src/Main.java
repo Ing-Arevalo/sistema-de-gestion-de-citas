@@ -18,15 +18,15 @@ public class Main {
         GestionUsuariosService gus = new GestionUsuariosService(saludTron);
         GestionArchivosService gas = new GestionArchivosService(saludTron);
 
-        AdministradorController ac = new AdministradorController(gcs, gus, input);
-        RecepcionistaController rc = new RecepcionistaController(gcs, gus, input);
-        MedicoController mc = new MedicoController(gcs, gus, input);
-        PacienteController pc = new PacienteController(gcs, gus, input);
+        AdministradorController ac = new AdministradorController(gcs, gus);
+        RecepcionistaController rc = new RecepcionistaController(gcs, gus);
+        MedicoController mc = new MedicoController(gcs, gus);
+        PacienteController pc = new PacienteController(gcs, gus);
 
-        VistaRecepcionista vr = new VistaRecepcionista(rc, input);
-        VistaAdministrador va = new VistaAdministrador(ac, input);
-        VistaMedico vm = new VistaMedico(mc, input);
-        VistaPaciente vp = new VistaPaciente(pc, input);
+        VistaRecepcionista vr = new VistaRecepcionista(rc);
+        VistaAdministrador va = new VistaAdministrador(ac);
+        VistaMedico vm = new VistaMedico(mc);
+        VistaPaciente vp = new VistaPaciente(pc);
 
         gas.descargarDatos();
 

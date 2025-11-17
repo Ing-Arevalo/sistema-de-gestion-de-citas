@@ -4,17 +4,13 @@ import service.GestionCitasService;
 import service.GestionUsuariosService;
 import service.ValidacionDatosService;
 
-import java.util.Scanner;
-
 public class RecepcionistaController {
     GestionCitasService gcs;
     GestionUsuariosService gus;
-    Scanner input;
 
-    public RecepcionistaController(GestionCitasService gcs, GestionUsuariosService gus, Scanner input){
+    public RecepcionistaController(GestionCitasService gcs, GestionUsuariosService gus){
         this.gcs = gcs;
         this.gus = gus;
-        this.input = input;
     }
 
     public String listadoCitas(){

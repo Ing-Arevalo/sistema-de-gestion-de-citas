@@ -1,15 +1,12 @@
 package view;
 
 import controller.PacienteController;
-import java.util.Scanner;
 
 public class VistaPaciente {
     PacienteController pc;
-    Scanner input;
 
-    public VistaPaciente(PacienteController pc, Scanner input) {
+    public VistaPaciente(PacienteController pc) {
         this.pc = pc;
-        this.input = input;
     }
 
     public void mostrar() {
