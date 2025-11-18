@@ -55,5 +55,12 @@ public class GestionUsuariosService {
     public void eliminarMedico(int idMed){
         ips.eliminarMedico(idMed);
     }
-
+    public Usuario buscarUsuarioPorDocumento(String numId) {
+        for (Usuario usr : ips.getUsuarios()) {
+            if (usr.getNumId().equals(numId)) {
+                return usr;
+            }
+        }
+        return null;
+    }
 }
