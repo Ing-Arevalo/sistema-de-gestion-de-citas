@@ -12,8 +12,10 @@ public class Main {
         Scanner input = new Scanner(System.in);
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
+        // ====== MODELO PRINCIPAL ======
         IPS saludTron = new IPS("SaludTron", "123456");
 
+        // ====== SERVICIOS ======
         GestionCitasService gcs = new GestionCitasService(saludTron);
         GestionUsuariosService gus = new GestionUsuariosService(saludTron);
         GestionArchivosService gas = new GestionArchivosService(saludTron);
@@ -27,12 +29,16 @@ public class Main {
         MedicoController mc = new MedicoController(gcs, gus);
         PacienteController pc = new PacienteController(gcs, gus);
 
+        // ====== VISTAS SWING (paneles principales) ======
         VistaRecepcionista vr = new VistaRecepcionista(rc);
         VistaAdministrador va = new VistaAdministrador(ac);
         VistaMedico vm = new VistaMedico(mc);
         VistaPaciente vp = new VistaPaciente(pc);
 
-        gas.descargarDatos();
+        // ====== LOGIN ======
+        LoginController loginController = new LoginController(gus, va, vr, vm, vp);
+        VistaLogin vl = new VistaLogin(loginController);
 
+        vl.mostrar();
     }
 }
