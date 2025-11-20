@@ -64,6 +64,7 @@ public class IPS {
 
     public void agregarMedico(Medico med){
         medicos.add(med);
+        usuarios.add(med);
     }
 
     public Medico getMedicoXid(int idMed){

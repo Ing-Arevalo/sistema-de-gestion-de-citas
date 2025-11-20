@@ -6,4 +6,8 @@ public class Recepcionista extends Usuario{
         super(id, nombre, nIdentificacion,email, telefono, tipoUsuario);
     }
 
+    public String toCSV(){
+        return getId() + ";" + getNombre() + ";" + getNumId() + ";" + getEmail() + ";" + getTelefono();
+    }
+
 }

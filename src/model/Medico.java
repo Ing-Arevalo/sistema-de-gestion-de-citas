@@ -14,6 +14,10 @@ public class Medico extends Usuario{
         this.especialidad = especialidad;
     }
 
+    public String toCSV(){
+        return getId() + ";" + getNombre() + ";" + getNumId() + ";" + getEmail() + ";" + getTelefono() + ";" + getEspecialidad();
+    }
+
     public void asignarConsultorio(Consultorio con){
         this.consultorioAsignado = con;
     }

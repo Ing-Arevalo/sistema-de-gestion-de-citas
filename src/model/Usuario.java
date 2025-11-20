@@ -17,6 +17,8 @@ public abstract class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
+    public abstract String toCSV();
+
     public int getId(){
         return id;
     }
@@ -62,10 +64,6 @@ public abstract class Usuario {
 
     public void setNumId(String numId) {
         this.numId = numId;
-    }
-
-    public String toCSV(){
-        return getId() + ";" + getTipoUsuario() +";" + getNombre() + ";" + getNumId() + ";" + getEmail() + ";" + getTelefono();
     }
 
 }
