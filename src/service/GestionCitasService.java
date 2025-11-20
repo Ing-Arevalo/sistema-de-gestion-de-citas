@@ -32,12 +32,12 @@ public class GestionCitasService {
         return listado;
     }
 
-    public void reservarCita(int idPac, int idMed){
+    public void reservarCita(int idMed, int idPac){
         int idCit = ips.genIdCit();
         LocalDateTime fechaHora = LocalDateTime.now();
-        Paciente pac = ips.getPacienteXid(idPac - 1);
-        Medico med = ips.getMedicoXid(idMed - 1);
-        Cita cit = new Cita(idCit, pac, med, fechaHora);
+        Paciente pac = ips.getPacienteXid(idPac);
+        Medico med = ips.getMedicoXid(idMed);
+        Cita cit = new Cita(idCit, med, pac, fechaHora);
         ips.agregarCita(cit);
         gas.cargarCita(cit);
     }

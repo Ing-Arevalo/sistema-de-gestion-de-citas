@@ -8,12 +8,12 @@ public class Cita {
     private EstadoCita estado;
     private Paciente paciente;
     private Medico medico;
-    private Consultorio consultorio;
+    private final Consultorio consultorio;
     private LocalDateTime fechaYhoraInicio;
-    private LocalDateTime fechaYhoraFin;
+    private final LocalDateTime fechaYhoraFin;
     private final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-    public Cita(int id, Paciente paciente, Medico medico, LocalDateTime fechaYhora) {
+    public Cita(int id, Medico medico, Paciente paciente, LocalDateTime fechaYhora) {
         this.id = id;
         this.estado = EstadoCita.RESERVADA;
         this.paciente = paciente;
@@ -55,10 +55,6 @@ public class Cita {
         return consultorio;
     }
 
-    public void setConsultorio(Consultorio consultorio) {
-        this.consultorio = consultorio;
-    }
-
     public LocalDateTime getFechaYhoraInicio() {
         return fechaYhoraInicio;
     }
@@ -68,7 +64,7 @@ public class Cita {
     }
 
     public String toCSV(){
-        return getId() + ";" + getMedico().getId() + ";" + getPaciente().getId() + ";" + getFechaYhoraInicio().format(formato);
+        return getId() + ";" + getMedico().getId() + ";" + getPaciente().getId() + ";" + getFechaYhoraInicio().format(formato) + ";" + getConsultorio().getId() + ";" + getEstado();
     }
 
     public String toString(){

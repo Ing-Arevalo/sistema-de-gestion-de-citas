@@ -68,7 +68,12 @@ public class IPS {
     }
 
     public Medico getMedicoXid(int idMed){
-        return medicos.get(idMed);
+        for(Medico med : medicos){
+            if(med.getId() == idMed){
+                return med;
+            }
+        }
+        return null;
     }
 
     public void actualizarMedico(int idMed, Medico med){
@@ -87,7 +92,12 @@ public class IPS {
     }
 
     public Paciente getPacienteXid(int idPac){
-        return pacientes.get(idPac);
+        for(Paciente pac : pacientes){
+            if(pac.getId() == idPac){
+                return pac;
+            }
+        }
+        return null;
     }
 
     public void actualizarPaciente(int idPac, Paciente pac){

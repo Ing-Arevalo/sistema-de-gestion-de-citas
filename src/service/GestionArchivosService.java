@@ -22,9 +22,9 @@ public class GestionArchivosService {
     }
 
     public void descargarDatos() {
+        descargarConsultorios(rutaCons);
         descargarPacientes(rutaPacs);
         descargarMedicos(rutaMeds);
-        descargarConsultorios(rutaCons);
         descargarCitas(rutaCits);
     }
 
@@ -47,7 +47,10 @@ public class GestionArchivosService {
         try(Scanner reader = new Scanner(file)){
             while (reader.hasNextLine()){
                 String[] medCSV = reader.nextLine().split(";");
-                ips.agregarMedico(new Medico(Integer.parseInt(medCSV[0]), medCSV[1], medCSV[2], medCSV[3], medCSV[4], medCSV[5]));
+                Medico med = new Medico(Integer.parseInt(medCSV[0]), medCSV[1], medCSV[2], medCSV[3], medCSV[4], medCSV[5]);
+                Consultorio conMed = ips.getConsultorioXid(Integer.parseInt(medCSV[6]));
+                med.asignarConsultorio(conMed);
+                ips.agregarMedico(med);
             }
         }catch (FileNotFoundException e){
             System.out.println(e);
@@ -69,17 +72,17 @@ public class GestionArchivosService {
     }
 
     public void descargarCitas(String ruta){
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         File file = new File(ruta);
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
         try(Scanner reader = new Scanner(file)){
             while (reader.hasNextLine()){
                 String[] citCSV = reader.nextLine().split(";");
                 int idCit = Integer.parseInt(citCSV[0]);
-                Paciente pacCit = ips.getPacienteXid(Integer.parseInt(citCSV[1]));
-                Medico medCit = ips.getMedicoXid(Integer.parseInt(citCSV[2]));
+                Medico medCit = ips.getMedicoXid(Integer.parseInt(citCSV[1]));
+                Paciente pacCit = ips.getPacienteXid(Integer.parseInt(citCSV[2]));
                 LocalDateTime fecCit = LocalDateTime.parse(citCSV[3], formato);
-                ips.agregarCita(new Cita(idCit, pacCit, medCit, fecCit));
+                ips.agregarCita(new Cita(idCit, medCit, pacCit, fecCit));
             }
         }catch (FileNotFoundException e){
             System.out.println(e);

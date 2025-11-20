@@ -17,8 +17,8 @@ public class RecepcionistaController {
         return gcs.listadoCitas();
     }
 
-    public void reservarCita(int idPac, int idMed){
-        gcs.reservarCita(idPac, idMed);
+    public void reservarCita(int idMed, int idPac){
+        gcs.reservarCita(idMed, idPac);
     }
 
     public String listadoUsuarios(){
