@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class GestionArchivosService {
@@ -68,6 +69,7 @@ public class GestionArchivosService {
     }
 
     public void descargarCitas(String ruta){
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         File file = new File(ruta);
 
         try(Scanner reader = new Scanner(file)){
@@ -76,7 +78,7 @@ public class GestionArchivosService {
                 int idCit = Integer.parseInt(citCSV[0]);
                 Paciente pacCit = ips.getPacienteXid(Integer.parseInt(citCSV[1]));
                 Medico medCit = ips.getMedicoXid(Integer.parseInt(citCSV[2]));
-                LocalDateTime fecCit = LocalDateTime.parse(citCSV[3]);
+                LocalDateTime fecCit = LocalDateTime.parse(citCSV[3], formato);
                 ips.agregarCita(new Cita(idCit, pacCit, medCit, fecCit));
             }
         }catch (FileNotFoundException e){

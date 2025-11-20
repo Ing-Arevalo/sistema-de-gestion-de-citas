@@ -1,15 +1,21 @@
 package controller;
 
+import service.GestionArchivosService;
 import service.GestionCitasService;
+import service.GestionConsultoriosService;
 import service.GestionUsuariosService;
 
 public class AdministradorController {
     GestionCitasService gcs;
     GestionUsuariosService gus;
+    GestionArchivosService gas;
+    GestionConsultoriosService gos;
 
-    public AdministradorController(GestionCitasService gcs, GestionUsuariosService gus){
+    public AdministradorController(GestionCitasService gcs, GestionUsuariosService gus, GestionArchivosService gas, GestionConsultoriosService gos){
         this.gcs = gcs;
         this.gus = gus;
+        this.gas = gas;
+        this.gos = gos;
     }
 
     public String getListadoUsuarios(){
@@ -27,7 +33,6 @@ public class AdministradorController {
 
     public void registrarMedico(String nombre, String numId, String email, String  telefono, String especialidad){
         gus.registrarMedico(nombre, numId, email, telefono, especialidad);
-
     }
 
     public void registrarUsuario(String nombre, String numId, String email, String  telefono, String especialidad){
@@ -47,8 +52,8 @@ public class AdministradorController {
         return listado;
     }
 
-    public void registrarConsultorio(){
-
+    public void registrarConsultorio(String especialidad, int piso){
+        gos.agregarConsultorio(especialidad, piso);
     }
 
     public String getDatosConsultorio(int idCon){

@@ -1,1 +1,5 @@
-1;Juan Paez;123456;jauan@elver.com;3007651252
+1;PACIENTE;Juan Paez;123456;jauan@elver.com;3007651252
+2;PACIENTE;María Rodríguez;987654;maria.rodriguez@email.co;3152239011
+3;PACIENTE;Carlos Pérez;10203040;carlos.perez@dominio.net;3208765432
+4;PACIENTE;Ana Gómez;55667788;ana.gomez@empresa.org;3014567890
+5;PACIENTE;Luis Torres;11223344;luis.torres@webmail.com;3109876543

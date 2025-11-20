@@ -135,4 +135,12 @@ public class IPS {
         return (usuarios.size() + 1);
     }
 
+    public int genIdCon(){
+        return (consultorios.size() + 1);
+    }
+
+    public int genIdCit(){
+        return (citas.size() + 1);
+    }
+
 }

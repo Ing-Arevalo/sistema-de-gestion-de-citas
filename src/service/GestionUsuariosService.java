@@ -4,14 +4,14 @@ import model.*;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class GestionUsuariosService {
     IPS ips;
-    Scanner input = new Scanner(System.in);
+    GestionArchivosService gas;
 
-    public GestionUsuariosService(IPS ips){
+    public GestionUsuariosService(IPS ips, GestionArchivosService gas){
         this.ips = ips;
+        this.gas = gas;
     }
 
     public String listadoUsuarios(){
@@ -61,6 +61,7 @@ public class GestionUsuariosService {
         int idPac = ips.genIdUsr();
         Paciente pac = new Paciente(idPac, nombre, numId, email, telefono);
         ips.agregarPaciente(pac);
+        gas.cargarPaciente(pac);
     }
 
     public String getInfoPaciente(int idPac){
@@ -80,6 +81,7 @@ public class GestionUsuariosService {
         int idMed = ips.genIdUsr();
         Medico med = new Medico(idMed, nombre, numId, email, telefono, especialidad);
         ips.agregarMedico(med);
+        gas.cargarMedico(med);
     }
 
     public String getInfoMedico(int idMed){

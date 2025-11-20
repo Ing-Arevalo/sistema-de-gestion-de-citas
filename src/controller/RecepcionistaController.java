@@ -25,7 +25,7 @@ public class RecepcionistaController {
         return gus.listadoUsuarios();
     }
     public void registrarPaciente(String nombre, String numId, String email, String telefono){
-        gus.registrarPaciente(nombre, numId,email, telefono);
+        gus.registrarPaciente(nombre, numId, email, telefono);
     }
 
     public String getInfoUsuario(int idUsr){

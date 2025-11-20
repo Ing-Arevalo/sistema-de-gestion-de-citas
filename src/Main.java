@@ -4,21 +4,19 @@ import controller.*;
 import service.*;
 
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
         IPS saludTron = new IPS("SaludTron", "123456");
 
-        GestionCitasService gcs = new GestionCitasService(saludTron);
-        GestionUsuariosService gus = new GestionUsuariosService(saludTron);
         GestionArchivosService gas = new GestionArchivosService(saludTron);
+        GestionCitasService gcs = new GestionCitasService(saludTron, gas);
+        GestionUsuariosService gus = new GestionUsuariosService(saludTron, gas);
+        GestionConsultoriosService gos = new GestionConsultoriosService(saludTron, gas);
 
-        AdministradorController ac = new AdministradorController(gcs, gus);
+        AdministradorController ac = new AdministradorController(gcs, gus, gas, gos);
         RecepcionistaController rc = new RecepcionistaController(gcs, gus);
         MedicoController mc = new MedicoController(gcs, gus);
         PacienteController pc = new PacienteController(gcs, gus);

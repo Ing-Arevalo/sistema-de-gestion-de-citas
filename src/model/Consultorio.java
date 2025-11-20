@@ -35,4 +35,8 @@ public class Consultorio {
         return getId() + ";" + getEspecialidad() + ";" + getPiso();
     }
 
+    public String toString(){
+        return id + " " + especialidad + " " + piso;
+    }
+
 }

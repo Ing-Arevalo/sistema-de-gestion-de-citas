@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Cita {
     private final int id;
@@ -10,6 +11,7 @@ public class Cita {
     private Consultorio consultorio;
     private LocalDateTime fechaYhoraInicio;
     private LocalDateTime fechaYhoraFin;
+    private final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     public Cita(int id, Paciente paciente, Medico medico, LocalDateTime fechaYhora) {
         this.id = id;
@@ -66,6 +68,10 @@ public class Cita {
     }
 
     public String toCSV(){
-        return getId() + ";" + getMedico().getId() + ";" + getPaciente().getId() + ";" + getConsultorio().getId()  + ";" + getFechaYhoraInicio().toString();
+        return getId() + ";" + getMedico().getId() + ";" + getPaciente().getId() + ";" + getFechaYhoraInicio().format(formato);
+    }
+
+    public String toString(){
+        return id + " " + getPaciente().getNombre() + " " + getMedico().getNombre();
     }
 }

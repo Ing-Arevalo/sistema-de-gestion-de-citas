@@ -3,14 +3,17 @@ package service;
 import model.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 
 public class GestionCitasService {
     IPS ips;
+    GestionArchivosService gas;
     DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-    public GestionCitasService(IPS ips){
+    public GestionCitasService(IPS ips, GestionArchivosService gas){
         this.ips = ips;
+        this.gas = gas;
     }
 
     public String listadoCitas(){
@@ -21,13 +24,22 @@ public class GestionCitasService {
         return listado;
     }
 
+    public ArrayList<String> getListadoCitas(){
+        ArrayList<String> listado = new ArrayList<>();
+        for(Cita cit: ips.getCitas()){
+            listado.add(cit.toString());
+        }
+        return listado;
+    }
+
     public void reservarCita(int idPac, int idMed){
-        int idCit = ips.getCitas().size() + 1;
+        int idCit = ips.genIdCit();
         LocalDateTime fechaHora = LocalDateTime.now();
-        Paciente pac = ips.getPacienteXid(idPac);
-        Medico med = ips.getMedicoXid(idMed);
+        Paciente pac = ips.getPacienteXid(idPac - 1);
+        Medico med = ips.getMedicoXid(idMed - 1);
         Cita cit = new Cita(idCit, pac, med, fechaHora);
         ips.agregarCita(cit);
+        gas.cargarCita(cit);
     }
 
     public String listadoCitasPaciente(Paciente pac){

@@ -1,0 +1,5 @@
+1;Cardiologia;1
+2;Pediatria;2
+3;Olfmatolgia;3
+4;Neurologia;4
+5;Hepatologia;2
