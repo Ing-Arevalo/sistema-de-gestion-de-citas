@@ -18,6 +18,10 @@ public class Main {
         GestionUsuariosService gus = new GestionUsuariosService(saludTron);
         GestionArchivosService gas = new GestionArchivosService(saludTron);
 
+        // Cargar datos desde archivo (si los hay)
+        gas.descargarDatos();
+
+        // ====== CONTROLADORES ======
         AdministradorController ac = new AdministradorController(gcs, gus);
         RecepcionistaController rc = new RecepcionistaController(gcs, gus);
         MedicoController mc = new MedicoController(gcs, gus);
