@@ -18,11 +18,8 @@ public class MedicoController {
         gcs.actulizarEstadoCita(idCit, 1);
     }
 
-    public String getListadoCitas(){
-        return gcs.listadoCitasMedico(medico);
+    public void cancelarCita(int idCit){
+        gcs.actulizarEstadoCita(idCit, 2);
     }
 
-    public String getDatosCita(int idCit){
-        return gcs.getDatosCita(idCit);
-    }
 }

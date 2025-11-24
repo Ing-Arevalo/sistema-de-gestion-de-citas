@@ -18,50 +18,47 @@ public class AdministradorController {
         this.gos = gos;
     }
 
-    public String getListadoUsuarios(){
-        return gus.listadoUsuarios();
-    }
-
-    public String getDatosUsuario(int idUsr){
-        String datos = "";
-        return datos;
-    }
-
-    public void registrarRecepcionista(){
+    public void registarRecepcionista(){
 
     }
 
-    public void registrarMedico(String nombre, String numId, String email, String  telefono, String especialidad){
-        gus.registrarMedico(nombre, numId, email, telefono, especialidad);
-    }
-
-    public void registrarUsuario(String nombre, String numId, String email, String  telefono, String especialidad){
+    public void actualizarRecepcionista(){
 
     }
 
-    public void editarUsuario(){
+    public void eliminarRecepcionista(){
 
     }
 
-    public void eliminarUsuario(){
+    public void registrarMedico(){
 
     }
 
-    public String getListadoConsultorios(){
-        String listado = "";
-        return listado;
+    public void actualizarMedico(){
+
+    }
+
+    public void eliminarMedico(){
+
+    }
+
+    public void registrarPaciente(){
+
+    }
+
+    public void actualizarPaciente(){
+
+    }
+
+    public void eliminarPaciente(){
+
     }
 
     public void registrarConsultorio(String especialidad, int piso){
         gos.agregarConsultorio(especialidad, piso);
     }
 
-    public String getDatosConsultorio(int idCon){
-        String datos = "";
-        return datos;
-    }
-
-    public void editarConsultorio(int idCon){
+    public void actualizarConsultorio(int idCon){
 
     }
 

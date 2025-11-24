@@ -2,7 +2,7 @@ package controller;
 
 import service.GestionCitasService;
 import service.GestionUsuariosService;
-import service.ValidacionDatosService;
+import java.time.LocalDateTime;
 
 public class RecepcionistaController {
     GestionCitasService gcs;
@@ -13,23 +13,12 @@ public class RecepcionistaController {
         this.gus = gus;
     }
 
-    public String listadoCitas(){
-        return gcs.listadoCitas();
+    public void reservarCita(int idMed, int idPac, LocalDateTime fechaHora){
+        gcs.reservarCita(idMed, idPac, fechaHora);
     }
 
-    public void reservarCita(int idMed, int idPac){
-        gcs.reservarCita(idMed, idPac);
-    }
-
-    public String listadoUsuarios(){
-        return gus.listadoUsuarios();
-    }
     public void registrarPaciente(String nombre, String numId, String email, String telefono){
         gus.registrarPaciente(nombre, numId, email, telefono);
-    }
-
-    public String getInfoUsuario(int idUsr){
-        return gus.getInfoUsuario(idUsr);
     }
 
 }

@@ -26,5 +26,10 @@ public class Main {
 
         gas.descargarDatos();
 
+        System.out.println(saludTron.getPacientes());
+        System.out.println(saludTron.getMedicos());
+        System.out.println(saludTron.getCitas());
+        System.out.println(saludTron.getConsultorios());
+        System.out.println(saludTron.getUsuarios());
     }
 }

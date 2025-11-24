@@ -2,9 +2,6 @@ package service;
 
 import model.*;
 
-import java.io.File;
-import java.util.ArrayList;
-
 public class GestionUsuariosService {
     IPS ips;
     GestionArchivosService gas;
@@ -14,47 +11,19 @@ public class GestionUsuariosService {
         this.gas = gas;
     }
 
-    public String listadoUsuarios(){
-        String listado = "";
-        for(Usuario usr: ips.getUsuarios()){
-            listado = listado.concat(usr.toString()).concat("\n");
-        }
-        return listado;
+    public void registrarRecepcionista(String nombre, String numId, String email, String telefono, String especialidad){
+        int idRep = ips.genIdUsr();
+        Recepcionista rep = new Recepcionista(idRep, nombre, numId, email, telefono);
+        ips.agregarRecepcionista(rep);
+        gas.cargarRecepcionista(rep);
     }
 
-    public String listadoUsuariosv2(){
-        String listado = "";
-        File archivo = new File("");
-        for(Usuario usr: ips.getUsuarios()){
-            listado = listado.concat(usr.toString()).concat("\n");
-        }
-        return listado;
+    public void actulizarRecepcionista(int idRep, Recepcionista rep){
+        ips.actualizarRecepcionista(ips.getRecepcionistas().get(idRep), rep);
     }
 
-    public ArrayList<String> getListadoPacientes(){
-        ArrayList<String> listado = new ArrayList<>();
-        for(Paciente pac: ips.getPacientes()){
-            listado.add(pac.toString());
-        }
-        return listado;
-    }
-
-    public ArrayList<String> getListadoMedicos(){
-        ArrayList<String> listado = new ArrayList<>();
-        for(Medico med: ips.getMedicos()){
-            listado.add(med.toString());
-        }
-        return listado;
-    }
-
-    public String getInfoUsuario(int idUsr){
-        if(ips.getUsuarioXid(idUsr).getTipoUsuario() == TipoUsuario.PACIENTE){
-            return getInfoPaciente(idUsr);
-        }else
-        if(ips.getUsuarioXid(idUsr).getTipoUsuario() == TipoUsuario.MEDICO){
-            return getInfoMedico(idUsr);
-        }
-        return "";
+    public void eliminarRecepcionista(int idRep){
+        ips.eliminarRecepcionistas(idRep);
     }
 
     public void registrarPaciente(String nombre, String numId, String email, String telefono){
@@ -64,13 +33,8 @@ public class GestionUsuariosService {
         gas.cargarPaciente(pac);
     }
 
-    public String getInfoPaciente(int idPac){
-        Paciente pac = ips.getPacienteXid(idPac);
-        return "\n" + pac.getTipoUsuario() + "\nID: " + pac.getId() + "\nNombre: " + pac.getNombre() + "\nIdentificación: " + pac.getNumId() + "\nEmail: " + pac.getEmail() + "\nTelefono: " + pac.getTelefono();
-    }
-
     public void actulizarPaciente(int idPac, Paciente pac){
-        ips.actualizarPaciente(idPac, pac);
+        ips.actualizarPaciente(ips.getPacienteXid(idPac), pac);
     }
 
     public void eliminarPaciente(int idPac){
@@ -84,13 +48,8 @@ public class GestionUsuariosService {
         gas.cargarMedico(med);
     }
 
-    public String getInfoMedico(int idMed){
-        Medico med = ips.getMedicoXid(idMed);
-        return "\n" + med.getTipoUsuario() + "\nID: " + med.getId() + "\nNombre: " + med.getNombre() + "\nIdentificación: " + med.getNumId() + "\nEmail: " + med.getEmail() + "\nTelefono: " + med.getTelefono();
-    }
-
     public void actulizarMedico(int idMed, Medico med){
-        ips.actualizarMedico(idMed, med);
+        ips.actualizarMedico(ips.getMedicoXid(idMed), med);
     }
 
     public void eliminarMedico(int idMed){

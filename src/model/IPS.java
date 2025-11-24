@@ -6,15 +6,17 @@ import java.util.List;
 public class IPS {
     private final String nombre;
     private final String NIT;
-    private final List<Usuario> usuarios;
-    private final List<Paciente> pacientes;
-    private final List<Medico> medicos;
-    private final List<Cita> citas;
-    private final List<Consultorio> consultorios;
+    private final ArrayList<Recepcionista> recepcionistas;
+    private final ArrayList<Usuario> usuarios;
+    private final ArrayList<Paciente> pacientes;
+    private final ArrayList<Medico> medicos;
+    private final ArrayList<Cita> citas;
+    private final ArrayList<Consultorio> consultorios;
 
     public IPS(String nombre, String NIT) {
         this.nombre = nombre;
         this.NIT = NIT;
+        this.recepcionistas = new ArrayList<>();
         this.usuarios = new ArrayList<>();
         this.pacientes = new ArrayList<>();
         this.medicos = new ArrayList<>();
@@ -22,12 +24,24 @@ public class IPS {
         this.consultorios = new ArrayList<>();
     }
 
-    public List<Paciente> getPacientes() {
+    public ArrayList<Usuario> getUsuarios(){
+        return usuarios;
+    }
+
+    public ArrayList<Paciente> getPacientes() {
         return pacientes;
     }
 
-    public List<Medico> getMedicos() {
+    public ArrayList<Medico> getMedicos() {
         return medicos;
+    }
+
+    public ArrayList<Recepcionista> getRecepcionistas() {
+        return recepcionistas;
+    }
+
+    public List<Cita> getCitas() {
+        return citas;
     }
 
     public String getNombre() {
@@ -36,14 +50,6 @@ public class IPS {
 
     public String getNIT() {
         return NIT;
-    }
-
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public List<Cita> getCitas() {
-        return citas;
     }
 
     public List<Consultorio> getConsultorios() {
@@ -55,16 +61,44 @@ public class IPS {
 
         if(usr instanceof Paciente){
             agregarPaciente((Paciente) usr);
-        }else
+        }
         if(usr instanceof Medico){
             agregarMedico((Medico) usr);
         }
+        if(usr instanceof Recepcionista){
+            agregarRecepcionista((Recepcionista) usr);
+        }
     }
 
+    public void actualizarUsuario(Usuario oldUsr, Usuario newUsr){
+        if(oldUsr.getClass() == newUsr.getClass()) {
+            if (newUsr instanceof Paciente) {
+                actualizarPaciente((Paciente) oldUsr, (Paciente) newUsr);
+            }
+            if (newUsr instanceof Medico) {
+                actualizarMedico((Medico) oldUsr, (Medico) newUsr);
+            }
+            if (newUsr instanceof Recepcionista) {
+                actualizarRecepcionista((Recepcionista) oldUsr, (Recepcionista) newUsr);
+            }
+            usuarios.set(oldUsr.getId(), newUsr);
+        }
+    }
+
+    public void agregarRecepcionista(Recepcionista rec){
+        recepcionistas.add(rec);
+    }
+
+    public void actualizarRecepcionista(Recepcionista oldRec, Recepcionista newRec){
+        recepcionistas.set(recepcionistas.indexOf(oldRec), newRec);
+    }
+
+    public void eliminarRecepcionistas(int idRep){
+        recepcionistas.remove(idRep);
+    }
 
     public void agregarMedico(Medico med){
         medicos.add(med);
-        usuarios.add(med);
     }
 
     public Medico getMedicoXid(int idMed){
@@ -76,9 +110,8 @@ public class IPS {
         return null;
     }
 
-    public void actualizarMedico(int idMed, Medico med){
-        medicos.set(idMed, med);
-        usuarios.set(idMed, med);
+    public void actualizarMedico(Medico oldMed, Medico newMed){
+        medicos.set(medicos.indexOf(oldMed), newMed);
     }
 
     public void eliminarMedico(int idMed){
@@ -87,7 +120,6 @@ public class IPS {
     }
 
     public void agregarPaciente(Paciente pac){
-        usuarios.add(pac);
         pacientes.add(pac);
     }
 
@@ -100,9 +132,8 @@ public class IPS {
         return null;
     }
 
-    public void actualizarPaciente(int idPac, Paciente pac){
-        pacientes.set(idPac, pac);
-        usuarios.set(idPac, pac);
+    public void actualizarPaciente(Paciente oldPac, Paciente newPac){
+        pacientes.set(pacientes.indexOf(oldPac), newPac);
     }
 
     public void eliminarPaciente(int idPac){
@@ -136,10 +167,6 @@ public class IPS {
 
     public void actualizarCita(int idCita, Cita c){
         citas.set(idCita, c);
-    }
-
-    public Usuario getUsuarioXid(int idUsr){
-        return usuarios.get(idUsr);
     }
 
     public int genIdUsr(){

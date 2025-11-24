@@ -4,6 +4,8 @@ import model.Paciente;
 import service.GestionCitasService;
 import service.GestionUsuariosService;
 
+import java.time.LocalDateTime;
+
 public class PacienteController {
     GestionCitasService gcs;
     GestionUsuariosService gus;
@@ -14,15 +16,12 @@ public class PacienteController {
         this.gus = gus;
     }
 
-    public String listadoCitas(){
-        return gcs.listadoCitasPaciente(paciente);
-    }
-
-    public void reservarCita(int idMed){
-        gcs.reservarCita(paciente.getId(), idMed);
+    public void reservarCita(int idMed, LocalDateTime fechaHora){
+        gcs.reservarCita(paciente.getId(), idMed, fechaHora);
     }
 
     public void cancelarCita(int idCit){
-        gcs.cancelarCita(idCit);
+        gcs.actulizarEstadoCita(idCit, 2);
     }
+
 }

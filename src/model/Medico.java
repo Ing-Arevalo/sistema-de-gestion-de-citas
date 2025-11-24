@@ -1,17 +1,16 @@
 package model;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Medico extends Usuario{
     private String especialidad;
     private Consultorio consultorioAsignado;
-    private String[][] agenda;
-    private ArrayList<LocalTime> horario;
+    private final ArrayList<Integer> horario;
 
     public Medico(int id, String nombre, String numId, String email, String telefono, String especialidad) {
         super(id, nombre, numId, email, telefono, TipoUsuario.MEDICO);
         this.especialidad = especialidad;
+        this.horario = new ArrayList<>();
     }
 
     public String toCSV(){
@@ -22,12 +21,11 @@ public class Medico extends Usuario{
         this.consultorioAsignado = con;
     }
 
-    public void asignarHorario(ArrayList<LocalTime> horario){
-        this.horario = horario;
-    }
-
-    public void asignarAgenda(String[][] agenda){
-        this.agenda = agenda;
+    public void asignarCita(Cita cita){
+        Integer idCit = cita.getId();
+        if(!horario.contains(idCit)){
+            horario.add(idCit);
+        }
     }
 
     public String getEspecialidad() {
@@ -46,15 +44,7 @@ public class Medico extends Usuario{
         this.consultorioAsignado = consultorioAsignado;
     }
 
-    public String[][] getAgenda() {
-        return agenda;
-    }
-
-    public void setAgenda(String[][] agenda) {
-        this.agenda = agenda;
-    }
-
-    public ArrayList<LocalTime> getHorario() {
+    public ArrayList<Integer> getHorario() {
         return horario;
     }
 }

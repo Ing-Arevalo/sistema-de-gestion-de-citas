@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Scanner;
 
 public class GestionArchivosService {
@@ -16,6 +17,7 @@ public class GestionArchivosService {
     final String rutaPacs = "data/pacientes.txt";
     final String rutaCits = "data/citas.txt";
     final String rutaCons = "data/consultorios.txt";
+    final String rutaRecs = "data/recepcionistas.txt";
 
     public GestionArchivosService(IPS ips){
         this.ips = ips;
@@ -23,9 +25,23 @@ public class GestionArchivosService {
 
     public void descargarDatos() {
         descargarConsultorios(rutaCons);
+        descargarRecepcionistas(rutaRecs);
         descargarPacientes(rutaPacs);
         descargarMedicos(rutaMeds);
         descargarCitas(rutaCits);
+    }
+
+    public void descargarRecepcionistas(String ruta){
+        File file = new File(ruta);
+
+        try(Scanner reader = new Scanner(file)){
+            while (reader.hasNextLine()){
+                String[] repCSV = reader.nextLine().split(";");
+                ips.agregarUsuario(new Paciente(Integer.parseInt(repCSV[0]), repCSV[1], repCSV[2], repCSV[3], repCSV[4]));
+            }
+        }catch (FileNotFoundException e){
+            System.out.println(e);
+        }
     }
 
     public void descargarPacientes(String ruta) {
@@ -34,7 +50,7 @@ public class GestionArchivosService {
         try(Scanner reader = new Scanner(file)){
             while (reader.hasNextLine()){
                 String[] pacCSV = reader.nextLine().split(";");
-                ips.agregarPaciente(new Paciente(Integer.parseInt(pacCSV[0]), pacCSV[1], pacCSV[2], pacCSV[3], pacCSV[4]));
+                ips.agregarUsuario(new Paciente(Integer.parseInt(pacCSV[0]), pacCSV[1], pacCSV[2], pacCSV[3], pacCSV[4]));
             }
         }catch (FileNotFoundException e){
             System.out.println(e);
@@ -50,7 +66,7 @@ public class GestionArchivosService {
                 Medico med = new Medico(Integer.parseInt(medCSV[0]), medCSV[1], medCSV[2], medCSV[3], medCSV[4], medCSV[5]);
                 Consultorio conMed = ips.getConsultorioXid(Integer.parseInt(medCSV[6]));
                 med.asignarConsultorio(conMed);
-                ips.agregarMedico(med);
+                ips.agregarUsuario(med);
             }
         }catch (FileNotFoundException e){
             System.out.println(e);
@@ -82,9 +98,19 @@ public class GestionArchivosService {
                 Medico medCit = ips.getMedicoXid(Integer.parseInt(citCSV[1]));
                 Paciente pacCit = ips.getPacienteXid(Integer.parseInt(citCSV[2]));
                 LocalDateTime fecCit = LocalDateTime.parse(citCSV[3], formato);
-                ips.agregarCita(new Cita(idCit, medCit, pacCit, fecCit));
+                EstadoCita estCit = EstadoCita.toEstadoCita(Integer.parseInt(citCSV[4]));
+                ips.agregarCita(new Cita(idCit, medCit, pacCit, fecCit, estCit));
             }
+            asignarCitas();
         }catch (FileNotFoundException e){
+            System.out.println(e);
+        }
+    }
+
+    public void cargarRecepcionista(Recepcionista rec){
+        try (FileWriter writer = new FileWriter(rutaRecs, true)) {
+            writer.write("\n" + rec.toCSV());
+        } catch (IOException e) {
             System.out.println(e);
         }
     }
@@ -118,6 +144,17 @@ public class GestionArchivosService {
             writer.write("\n" + con.toCSV());
         } catch (IOException e) {
             System.out.println(e);
+        }
+    }
+
+    private void asignarCitas(){
+        List<Cita> cits = ips.getCitas();
+        for(Cita cit: cits){
+            int idMed = cit.getMedico().getId();
+            int idPac = cit.getPaciente().getId();
+            Medico med = ips.getMedicoXid(idMed);
+            med.asignarCita(cit);
+            ips.actualizarMedico(med, med);
         }
     }
 
