@@ -3,4 +3,5 @@
 8;Ever Torres;101234568;EveTT@examail.com;123456;Pediatria
 9;Julian ruiz;101234569;ruizJul@examail.com;123456;Enfermeria
 10;Malcon Lee;101234510;ElDocLee@examail.com;123456;Oftamologia
-12;cludio bravo;1007615951;claudio@gmail.com;3128919009;venezolano
+12;cludiios;1007615951;claudio@gmail.com;3128919009;general
+13;kyliam;11199955664;andrs@gmail.com;31264861646;goles
