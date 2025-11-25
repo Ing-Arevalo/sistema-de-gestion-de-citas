@@ -1,5 +1,15 @@
 package controller;
 
+import model.Medico;
+import model.Paciente;
+import model.TipoUsuario;
+import model.Usuario;
+import service.GestionUsuariosService;
+import view.VistaAdministrador;
+import view.VistaMedico;
+import view.VistaPaciente;
+import view.VistaRecepcionista;
+
 public class LoginController {
 
     private final GestionUsuariosService gus;
@@ -20,21 +30,18 @@ public class LoginController {
         this.vp = vp;
     }
 
-    // --------- Lógica de login ----------
-
     /**
-     * Login de usuario normal (médico / paciente / recepcionista) usando numId.
+     * Login de usuario (médico / paciente / recepcionista) con documento + password.
      */
-    public Usuario validarLoginUsuario(String numId) {
-        return gus.buscarUsuarioPorDocumento(numId);
+    public Usuario validarLoginUsuario(String numId, String password) {
+        return gus.validarLoginUsuario(numId, password);
     }
 
     /**
-     * Login de administrador "simple" con credenciales fijas.
-     * Puedes cambiarlas por lo que te pida el profe.
+     * Login de administrador.
      */
     public boolean validarLoginAdmin(String usuario, String clave) {
-        return "admin".equals(usuario) && "admin123".equals(clave);
+        return gus.validarAdministrador(usuario, clave);
     }
 
     /**
@@ -45,11 +52,19 @@ public class LoginController {
 
         TipoUsuario tipo = usr.getTipoUsuario();
         switch (tipo) {
-            case PACIENTE -> vp.mostrar();
-            case MEDICO -> vm.mostrar();
+            case PACIENTE -> {
+                if (usr instanceof Paciente p) {
+                    vp.mostrar(p);
+                }
+            }
+            case MEDICO -> {
+                if (usr instanceof Medico m) {
+                    vm.mostrar(m);
+                }
+            }
             case RECEPCIONISTA -> vr.mostrar();
             default -> {
-                // Por si en el futuro agregas más tipos
+                // otros tipos si los agregas
             }
         }
     }

@@ -1,5 +1,6 @@
-6;Lina Morales;101234566;MoralLin@examail.com;123456;Neurocirugia;1
-7;Miguel Morales;101234567;MoraMig@examail.com;123456;Cardiologia;1
-8;Ever Torres;101234568;EveTT@examail.com;123456;Pediatria;2
-9;Julian ruiz;101234569;ruizJul@examail.com;123456;Enfermeria;3
-10;Malcon Lee;101234510;ElDocLee@examail.com;123456;Oftamologia;4
+6;Lina Morales;101234566;MoralLin@examail.com;123456;Neurocirugia
+7;Miguel Morales;101234567;MoraMig@examail.com;123456;Cardiologia
+8;Ever Torres;101234568;EveTT@examail.com;123456;Pediatria
+9;Julian ruiz;101234569;ruizJul@examail.com;123456;Enfermeria
+10;Malcon Lee;101234510;ElDocLee@examail.com;123456;Oftamologia
+12;cludio bravo;1007615951;claudio@gmail.com;3128919009;venezolano

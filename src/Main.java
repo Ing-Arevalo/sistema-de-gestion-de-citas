@@ -14,22 +14,25 @@ public class Main {
         GestionUsuariosService gus = new GestionUsuariosService(saludTron, gas);
         GestionConsultoriosService gos = new GestionConsultoriosService(saludTron, gas);
 
+        // Primero cargar datos desde los txt
+        gas.descargarDatos();
+
+        // Luego controladores
         AdministradorController ac = new AdministradorController(gcs, gus, gas, gos);
         RecepcionistaController rc = new RecepcionistaController(gcs, gus);
         MedicoController mc = new MedicoController(gcs, gus);
         PacienteController pc = new PacienteController(gcs, gus);
 
+        // Vistas
         VistaRecepcionista vr = new VistaRecepcionista(rc);
         VistaAdministrador va = new VistaAdministrador(ac);
         VistaMedico vm = new VistaMedico(mc);
         VistaPaciente vp = new VistaPaciente(pc);
 
-        gas.descargarDatos();
+        // Login
+        LoginController lc = new LoginController(gus, va, vr, vm, vp);
+        VistaLogin vl = new VistaLogin(lc);
 
-        System.out.println(saludTron.getPacientes());
-        System.out.println(saludTron.getMedicos());
-        System.out.println(saludTron.getCitas());
-        System.out.println(saludTron.getConsultorios());
-        System.out.println(saludTron.getUsuarios());
+        vl.mostrar();
     }
 }

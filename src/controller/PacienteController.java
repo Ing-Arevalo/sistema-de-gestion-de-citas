@@ -1,27 +1,53 @@
 package controller;
 
+import model.Cita;
+import model.Medico;
 import model.Paciente;
 import service.GestionCitasService;
 import service.GestionUsuariosService;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class PacienteController {
-    GestionCitasService gcs;
-    GestionUsuariosService gus;
-    Paciente paciente;
+    private final GestionCitasService gcs;
+    private final GestionUsuariosService gus;
+    private Paciente paciente;
 
     public PacienteController(GestionCitasService gcs, GestionUsuariosService gus){
         this.gcs = gcs;
         this.gus = gus;
     }
 
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
     public void reservarCita(int idMed, LocalDateTime fechaHora){
-        gcs.reservarCita(paciente.getId(), idMed, fechaHora);
+        if (paciente == null) return;
+        // reservarCita(idMed, idPac, fechaHora)
+        gcs.reservarCita(idMed, paciente.getId(), fechaHora);
     }
 
     public void cancelarCita(int idCit){
-        gcs.actulizarEstadoCita(idCit, 2);
+        // 1 = CANCELADA
+        gcs.actulizarEstadoCita(idCit, 1);
     }
 
+    public List<Cita> listarCitasPaciente() {
+        if (paciente == null) return List.of();
+        return gcs.listarCitas()
+                .stream()
+                .filter(c -> c.getPaciente() != null && c.getPaciente().getId() == paciente.getId())
+                .collect(Collectors.toList());
+    }
+
+    public List<Medico> listarMedicos() {
+        return gus.listarMedicos();
+    }
 }
